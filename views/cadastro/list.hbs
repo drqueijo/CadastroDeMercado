@@ -1,0 +1,34 @@
+<h3><a href="/cadastro" class="btn btn-secondary"><i class="fa fa-plus"></i>Novo</a> Lista de cadastro</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Nome:
+            </th>
+            
+            <th>
+                Email:
+            </th>
+            
+            <th>
+                Telefone:
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each list}}
+        <tr>
+            <td>{{this.nome}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.telefone}}</td>
+            <td>
+                <a ><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                <a ><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
