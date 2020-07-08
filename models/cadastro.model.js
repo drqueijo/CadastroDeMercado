@@ -8,8 +8,9 @@ var cadastroSchema = new mongoose.Schema({
     email: {
         type: String
     },
-    celular:{
-        type:String
+    telefone:{
+        type:String,
+        required: "Nao pode ser vazio"
     }
 });
 

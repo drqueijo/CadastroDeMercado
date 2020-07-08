@@ -12,7 +12,10 @@ router.get('/',(req,res)=>{
 });
 
 router.post('/', (req,res)=>{
-    insertRecord(req,res);
+    if (req.body._id =="")
+        insertRecord(req,res);
+    else
+        updateRecord(req,res);
 
 });
 
@@ -39,6 +42,24 @@ function insertRecord(req,res){
         }
     });
 }
+
+function updateRecord(req,res){
+    cadastro.findOneAndUpdate({_id: req.body._id}, req.body,{new: true},(err,doc)=>{
+        if (!err) { res.redirect('cadastro/list');}
+        else{
+            if(err.name == 'ValidationError') {
+                handleValidationError(err, req.body);
+                res.render("cadastro/addOrEdit",{
+                    viewTitle:'Editar cadastro',
+                    cadastro: req.body.toJSON()
+                })
+            }
+        }
+
+    });
+}
+
+
 router.get('/list',(req,res)=>{
         Cadastro.find((err, docs)=>{
             if (!err){
@@ -66,5 +87,19 @@ router.get('/list',(req,res)=>{
             }
         }
     }
+
+    router.get('/:id',(req,res)=>{
+        Cadastro.findById(req.params.id,(err, doc)=>{
+            if (!err) {
+                res.render("cadastro/addOrEdit", {
+                    viewTitle: "Editar Cadastro",
+                    cadastro: doc.toJSON()
+                });
+
+            }
+
+        });
+
+    });
 
 module.exports = router; 
