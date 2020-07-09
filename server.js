@@ -16,8 +16,8 @@ app.engine('hbs', exphdbs({extname:'hbs', defaultLayout:'mainLayout', layoutDir:
 }));
 app.set('view engine', 'hbs');
 
-app.listen(3000,()=>{
-    console.log ("SERVER PORT: 3000")
+app.listen(3001,()=>{
+    console.log ("servidor on: 3001")
 })
 
 app.use('/cadastro', cadastroControler)

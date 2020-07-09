@@ -44,7 +44,7 @@ function insertRecord(req,res){
 }
 
 function updateRecord(req,res){
-    cadastro.findOneAndUpdate({_id: req.body._id}, req.body,{new: true},(err,doc)=>{
+    Cadastro.findOneAndUpdate({_id: req.body._id}, req.body,{new: true},(err,doc)=>{
         if (!err) { res.redirect('cadastro/list');}
         else{
             if(err.name == 'ValidationError') {
@@ -52,7 +52,10 @@ function updateRecord(req,res){
                 res.render("cadastro/addOrEdit",{
                     viewTitle:'Editar cadastro',
                     cadastro: req.body.toJSON()
-                })
+                });
+            }
+            else {
+                console.log("ERRO: " + err);
             }
         }
 
@@ -98,6 +101,16 @@ router.get('/list',(req,res)=>{
 
             }
 
+        });
+
+    });
+
+    router.get('/delete/:id', (req, res)=>{
+        Cadastro.findByIdAndRemove(req.params.id,(err,doc)=>{
+            if(!err){
+                res.redirect('/cadastro/list');
+            }
+            else{console.log(err);}
         });
 
     });
